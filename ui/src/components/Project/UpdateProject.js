@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { createProject } from '../../actions/projectActions';
+import { getProject, createProject } from '../../actions/projectActions';
 
-class AddProject extends Component {
+class UpdateProject extends Component {
+
   constructor() {
     super();
-
     this.state = {
+      id: "",
       projectName: "",
       projectIdentifier: "",
       description: "",
@@ -16,37 +17,56 @@ class AddProject extends Component {
       end_date: "",
       errors: {}
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      errors,
+      project
+    } = nextProps;
+    if (errors) {
+      this.setState({
+        errors
+      });
+    }
+
+    this.setState({
+      ...project
+    });
+  }
+
+  componentDidMount() {
+    const { match: { params: { id } }, history } = this.props;
+    this.props.getProject(id, history);
   }
 
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
-
-  componentWillReceiveProps(props) {
-    const { errors } = props;
-    if (errors) {
-      this.setState({
-        errors
-      });
-    }
-  }
+  };
 
   onSubmit(e) {
     e.preventDefault();
-    const { projectName, projectIdentifier, description, start_date, end_date } = this.state;
-    const newProject = {
+    const {
+      id,
+      projectName,
+      projectIdentifier,
+      description,
+      start_date,
+      end_date
+    } = this.state;
+    const updateProject = {
+      id,
       projectName,
       projectIdentifier,
       description,
       start_date,
       end_date
     };
-    this.props.createProject(newProject, this.props.history);
+    this.props.createProject(updateProject, this.props.history);
   }
 
   render() {
@@ -58,7 +78,6 @@ class AddProject extends Component {
       end_date,
       errors : {
         projectName: invalidProjectName,
-        projectIdentifier: invalidProjectIdentifier,
         description: invalidDescription
       }
     } = this.state;
@@ -67,7 +86,7 @@ class AddProject extends Component {
         <div className="container">
             <div className="row">
                 <div className="col-md-8 m-auto">
-                    <h5 className="display-4 text-center">Create Project form</h5>
+                    <h5 className="display-4 text-center">Update Project form</h5>
                     <hr />
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
@@ -91,20 +110,11 @@ class AddProject extends Component {
                         <div className="form-group">
                             <input
                               type="text"
-                              className={classnames("form-control form-control-lg", {
-                                "is-invalid": invalidProjectIdentifier
-                              })}
+                              className="form-control form-control-lg"
                               placeholder="Unique Project ID"
                               name="projectIdentifier"
                               value={projectIdentifier}
-                              onChange={this.onChange} />
-                            {
-                              invalidProjectIdentifier && (
-                                <div className="invalid-feedback">
-                                  { invalidProjectIdentifier }
-                                </div>
-                              )
-                            }
+                              disabled />
                         </div>
                         <div className="form-group">
                             <textarea
@@ -143,9 +153,7 @@ class AddProject extends Component {
                               onChange={this.onChange} />
                         </div>
 
-                        <input
-                          type="submit"
-                          className="btn btn-primary btn-block mt-4" />
+                        <input type="submit" className="btn btn-primary btn-block mt-4" />
                     </form>
                 </div>
             </div>
@@ -155,13 +163,16 @@ class AddProject extends Component {
   }
 }
 
-AddProject.propTypes = {
+UpdateProject.propTypes = {
+  getProject: PropTypes.func.isRequired,
   createProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ errors }) => ({
-  errors
+const mapStateToProps = ({ project: { project }, errors}) => ({
+  project: project,
+  errors: errors
 });
 
-export default connect(mapStateToProps, { createProject })(AddProject);
+export default connect(mapStateToProps, { getProject, createProject })(UpdateProject);

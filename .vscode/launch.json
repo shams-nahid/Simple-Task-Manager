@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - PpmToolApplication",
+      "request": "launch",
+      "mainClass": "io.agileintelligence.ppmtool.PpmToolApplication",
+      "projectName": "ppmtool"
+    }
+  ]
+}
