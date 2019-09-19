@@ -37,7 +37,7 @@ public class ProjectTaskService {
 			// from API, default priority will be 0
 			// required to add a new requirement
 			// getPriority() should be compare with 0
-			if (projectTask.getPriority() == null) {
+			if (projectTask.getPriority() == 0 || projectTask.getPriority() == null) {
 				projectTask.setPriority(3);
 			}
 			if (projectTask.getStatus() == "" || projectTask.getStatus() == null) {
