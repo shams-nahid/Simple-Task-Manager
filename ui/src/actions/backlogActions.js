@@ -64,3 +64,13 @@ export const updateProjectTask = (backlog_id, pt_id, project_task, history) => a
   }
 };
 
+export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
+  if (window.confirm(`You are deleting project task ${pt_id}. This action can not be undone.`)) {
+    await axios.delete(`/api/backlog/${backlog_id}/${pt_id}`);
+    dispatch({
+      type: DELETE_PROJECT_TASK,
+      payload: pt_id
+    });
+  }
+};
+
