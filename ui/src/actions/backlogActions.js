@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_ERRORS, GET_PROJECT_TASK, DELETE_PROJECT_TASK, GET_BACKLOG } from './types';
-import { async } from 'q';
 
 const baseApi = '/api';
 const backlogApi = baseApi + '/backlog';
