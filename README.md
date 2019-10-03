@@ -70,6 +70,8 @@ You are all set to go.
 
 
 ## Upcoming Features
+* Compatible with Internet Explorer
+* Loading Icon
 * Manage development environment variable
 * Switch position
 * Searching
