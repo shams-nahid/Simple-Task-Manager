@@ -3,9 +3,11 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import jwtDecode from 'jwt-decode';
 import setJwtToHeader from '../securityUtils/setJwtToHeader';
 
+const baseApi = '/api/users';
+
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
-    await axios.post("/api/users/register", newUser);
+    await axios.post(`${baseApi}/register`, newUser);
     history.push("/login");
     dispatch({
       type: GET_ERRORS,
@@ -21,7 +23,7 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 export const login = LoginRequest => async dispatch => {
   try {
-    const res = await axios.post('/api/users/login', LoginRequest);
+    const res = await axios.post(`${baseApi}/login`, LoginRequest);
     const { token } = res.data;
     localStorage.setItem('jwtToken', token);
     setJwtToHeader(token);
