@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createNewUser } from '../../actions/securityActions';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -54,7 +55,7 @@ class Register extends Component {
       confirmPassword
     };
 
-    this.props.createNewUser(newUser, this.props.history);
+    trackPromise(this.props.createNewUser(newUser, this.props.history));
   }
 
   render() {

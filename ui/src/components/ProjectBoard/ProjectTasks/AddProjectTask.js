@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import { addProjectTask } from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -55,7 +56,7 @@ class AddProjectTask extends Component {
       dueDate,
       projectIdentifier
     };
-    this.props.addProjectTask(projectIdentifier, newProjectTask, this.props.history);
+    trackPromise(this.props.addProjectTask(projectIdentifier, newProjectTask, this.props.history));
   }
 
   render() {

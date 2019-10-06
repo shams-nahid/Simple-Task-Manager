@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { login } from '../../actions/securityActions'
+import { login } from '../../actions/securityActions';
 
 class Login extends Component {
 
@@ -41,7 +42,7 @@ class Login extends Component {
       username,
       password
     };
-    this.props.login(LoginRequest);
+    trackPromise(this.props.login(LoginRequest));
   }
 
   render() {

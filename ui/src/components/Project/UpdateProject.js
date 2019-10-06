@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import classnames from 'classnames';
 import { getProject, createProject } from '../../actions/projectActions';
 
@@ -39,7 +40,7 @@ class UpdateProject extends Component {
 
   componentDidMount() {
     const { match: { params: { id } }, history } = this.props;
-    this.props.getProject(id, history);
+    trackPromise(this.props.getProject(id, history));
   }
 
   onChange(e) {
@@ -66,7 +67,7 @@ class UpdateProject extends Component {
       start_date,
       end_date
     };
-    this.props.createProject(updateProject, this.props.history);
+    trackPromise(this.props.createProject(updateProject, this.props.history));
   }
 
   render() {

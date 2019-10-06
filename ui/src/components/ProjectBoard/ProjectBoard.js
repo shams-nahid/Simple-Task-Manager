@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Backlog from './Backlog';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import PropTypes from 'prop-types';
 import { getBacklog } from '../../actions/backlogActions';
 
@@ -24,7 +25,7 @@ class ProjectBoard extends Component {
 
   componentDidMount() {
     const { id: projectIdentifier } = this.props.match.params;
-    this.props.getBacklog(projectIdentifier);
+    trackPromise(this.props.getBacklog(projectIdentifier));
   }
 
   render() {

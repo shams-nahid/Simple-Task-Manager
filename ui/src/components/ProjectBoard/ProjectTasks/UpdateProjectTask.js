@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+import { trackPromise } from 'react-promise-tracker';
 import PropTypes from 'prop-types';
 import { getProjectTask, updateProjectTask } from '../../../actions/backlogActions';
 
@@ -29,7 +30,7 @@ class UpdateProjectTask extends Component {
 
 	componentDidMount() {
 		const { backlog_id, pt_id } = this.props.match.params;
-		this.props.getProjectTask(backlog_id, pt_id, this.props.history);
+		trackPromise(this.props.getProjectTask(backlog_id, pt_id, this.props.history));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -93,12 +94,12 @@ class UpdateProjectTask extends Component {
 			create_At
 		};
 		const { updateProjectTask, history } = this.props;
-		updateProjectTask(projectIdentifier, projectSequence, UpdatedProjectTask, history);		
+		trackPromise(updateProjectTask(projectIdentifier, projectSequence, UpdatedProjectTask, history));
 	}
 
   render() {
-		const { 
-			projectIdentifier, 
+		const {
+			projectIdentifier,
 			projectSequence,
 			summary,
 			acceptanceCriteria,
@@ -110,7 +111,7 @@ class UpdateProjectTask extends Component {
 		let invalidSummary = null;
 		if (errors && errors.summary) {
 			invalidSummary = errors.summary;
-		} 
+		}
     return (
       <div className="add-PBI">
         <div className="container">
@@ -123,12 +124,12 @@ class UpdateProjectTask extends Component {
                     <p className="lead text-center">Project Name: { projectIdentifier } | Project Task ID: { projectSequence }</p>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
-														<input 
-															type="text" 
+														<input
+															type="text"
 															className={classnames("form-control form-control-lg", {
 																"is-invalid": invalidSummary
 															})}
-															name="summary" 
+															name="summary"
 															placeholder="Project Task summary"
 															value={summary}
 															onChange={this.onChange} />
@@ -141,9 +142,9 @@ class UpdateProjectTask extends Component {
                               }
                         </div>
                         <div className="form-group">
-														<textarea 
-															className="form-control form-control-lg" 
-															placeholder="Acceptance Criteria" 
+														<textarea
+															className="form-control form-control-lg"
+															placeholder="Acceptance Criteria"
 															name="acceptanceCriteria"
 															value={acceptanceCriteria}
 															onChange={this.onChange} >
@@ -151,16 +152,16 @@ class UpdateProjectTask extends Component {
                         </div>
                         <h6>Due Date</h6>
                         <div className="form-group">
-														<input 
-															type="date" 
-															className="form-control form-control-lg" 
+														<input
+															type="date"
+															className="form-control form-control-lg"
 															name="dueDate"
 															value={dueDate}
 															onChange={this.onChange} />
                         </div>
                         <div className="form-group">
-														<select 
-															className="form-control form-control-lg" 
+														<select
+															className="form-control form-control-lg"
 															name="priority"
 															value={priority}
 															onChange={this.onChange} >
@@ -172,8 +173,8 @@ class UpdateProjectTask extends Component {
                         </div>
 
                         <div className="form-group">
-														<select 
-															className="form-control form-control-lg" 
+														<select
+															className="form-control form-control-lg"
 															name="status"
 															value={status}
 															onChange={this.onChange} >
