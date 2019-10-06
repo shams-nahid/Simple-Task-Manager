@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { trackPromise } from 'react-promise-tracker';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteProject } from '../../actions/projectActions';
@@ -7,7 +8,7 @@ import { deleteProject } from '../../actions/projectActions';
 class ProjectItem extends Component {
 
   onDeleteClick = id => {
-      this.props.deleteProject(id);
+    trackPromise(this.props.deleteProject(id));
   }
 
   render() {

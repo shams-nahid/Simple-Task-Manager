@@ -64,7 +64,7 @@ class Header extends Component {
       <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
         <div className="container">
             <Link className="navbar-brand" to="dashboard">
-                Personal Project Management Tool
+                Simple Task Management Tool
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                 <span className="navbar-toggler-icon" />

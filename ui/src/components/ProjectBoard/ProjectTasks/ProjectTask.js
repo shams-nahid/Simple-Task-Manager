@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { trackPromise } from 'react-promise-tracker';
 import { deleteProjectTask } from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,7 +8,7 @@ import { connect } from 'react-redux';
 class ProjectTask extends Component {
 
   onDeleteClick(backlog_id, pt_id) {
-    this.props.deleteProjectTask(backlog_id, pt_id);
+    trackPromise(this.props.deleteProjectTask(backlog_id, pt_id));
   }
 
   render() {
@@ -42,7 +43,7 @@ class ProjectTask extends Component {
                   View / Update
               </Link>
 
-              <button 
+              <button
                 className="btn btn-danger ml-4"
                 onClick={ this.onDeleteClick.bind(
                   this,

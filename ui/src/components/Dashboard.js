@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import ProjectItem from './Project/ProjectItem';
 import CreateProjectButton from './Project/CreateProjectButton';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import { getProjects } from '../actions/projectActions';
 import PropTypes from 'prop-types';
 
 class Dashboard extends Component {
 
   componentDidMount() {
-    this.props.getProjects();
+    trackPromise(this.props.getProjects());
   }
 
   render() {

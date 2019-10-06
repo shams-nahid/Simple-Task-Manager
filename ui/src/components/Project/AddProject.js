@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { trackPromise } from 'react-promise-tracker';
 import classnames from 'classnames';
 import { createProject } from '../../actions/projectActions';
 
@@ -46,7 +47,7 @@ class AddProject extends Component {
       start_date,
       end_date
     };
-    this.props.createProject(newProject, this.props.history);
+    trackPromise(this.props.createProject(newProject, this.props.history));
   }
 
   render() {
